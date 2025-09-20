@@ -2,8 +2,10 @@ package streams.practice.employee;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -105,6 +107,29 @@ public class EmployeeMainClass {
 						.thenComparing(Employee::getAge))
 				.collect(Collectors.toList());
 		System.out.println("sortedByNameElseAge: "+sortedByNameElseAge);
+		
+		
+		/*
+		 * Q8. Problem Statement: Below map is your input with name and age, using that return
+		 * output map with name and salary but the salary is age * 100.
+		 */
+		Map<String, Integer> map = new HashMap<>(); 
+		map.put("John", 25);
+		map.put("Alice", 30);
+		map.put("Bob", 28);
+		map.put("Charlie", 35);
+		
+		map.entrySet().stream().map(
+				e -> {
+					Employee emp = getAllEmployees().stream()
+							.filter(e1 -> e1.getName().equalsIgnoreCase(e.getKey())).findFirst().orElse(null);
+					if(emp!=null)
+						emp.setSalary(emp.getAge()*100);
+					return emp;
+				}
+				).filter(Objects::nonNull)
+		.collect(Collectors.toMap(Employee::getName, Employee::getSalary, (e1,e2)->e1, HashMap::new));
+		
 	}
 	
 	public static List<Employee> getAllEmployees(){
