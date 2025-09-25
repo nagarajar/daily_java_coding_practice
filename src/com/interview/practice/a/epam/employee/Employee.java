@@ -6,11 +6,14 @@ public class Employee {
 	private int id;
 	private String name;
 	private double salary;
+	private String dept;
 	
-	public Employee(int id, String name, double salary) {
+	public Employee(int id, String name, double salary, String dept) {
 		this.id = id;
 		this.name = name;
 		this.salary = salary;
+		this.dept = dept;
+		
 	}
 	
 	public int getId() {
@@ -23,6 +26,10 @@ public class Employee {
 	
 	public double getSalary() {
 		return salary;
+	}
+	
+	public String getDept() {
+		return dept;
 	}
 	
 	//Practice I am typing
@@ -63,6 +70,6 @@ public class Employee {
 	
 	@Override
 	public String toString() {
-		return "Employee: { id="+id+", name="+name+", salary="+salary+" }";
+		return "Employee: { id="+id+", name="+name+", salary="+salary+", dept="+dept+" }";
 	}
 }
