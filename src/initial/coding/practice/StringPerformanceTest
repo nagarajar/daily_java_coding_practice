@@ -9,38 +9,42 @@ public class Main {
         String input1 = "Hello@World!  123 How#Are$You?";
         System.out.println("Original: " + input1);
         printVowelsUsingBasicApproach(input1);
+        System.out.println();
         
         // Example 2: Using String Methods
         System.out.println("Example 2: Using String Methods");
         String input2 = "Java@Programming#202u4uU! ";
         System.out.println("Original: " + input2);
         printVowelsUsingIndexOf(input2);
+        System.out.println();
         
         // Example 3: Using Regular Expression
         System.out.println("Example 3: Using Regular Expression");
         String input3 = "Test$123@String#With%Vowels&2024! ";
         System.out.println("Original: " + input3);
         printVowelsUsingRegularExpression(input3);
-      
+        System.out.println();
         
         //Example 4: Separate Uppercase and Lowercase Vowels
         System.out.println("Example 4: Separate Uppercase and Lowercase Vowels");
         String input4 = "Hello@WORLD! Test#123$JAVA";
         System.out.println("Original: " + input4);
         separateUppercaseAndLowercaseVowels(input4);
+        System.out.println();
         
         //Example 5: Using StringBuilder (Efficient)
         System.out.println("Example 5: Using StringBuilder (Efficient)");
         String input5 = "Programming@2024#Java$Development! ";
         System.out.println("Original: " + input5);
         printVowelsUsingStringBuilder(input5);
+        System.out.println();
         
         //Example 6: Using Java 8 Streams
         System.out.println("Example 6: Using Java 8 Streams");
         String input6 = "Special@Characters#123$Test%String! ";
         System.out.println("Original: " + input6);
         printVowelsUsingStreams(input6);
-        
+        System.out.println();
         
         //Conclusion: 
         /*
@@ -202,11 +206,11 @@ public class Main {
         // long end5 = System.nanoTime();
         
         // Print results
-        System.out.println("Regex time:                       " + (end1-start1)/1_000_000 + " ms");
-        System.out.println("Collectors.joining() time:       " + (end2-start2)/1_000_000 + " ms");
-        System.out.println("StringBuilder collect() time:    " + (end3-start3)/1_000_000 + " ms");
-        System.out.println("Traditional loop time + StringBuilder: " + (end4-start4)/1_000_000 + " ms");
-        // System.out.println("Traditional loop time + String: " + (end5-start5)/1_000_000 + " ms");
+        System.out.println("Test 1 - Regex time:                      " + (end1-start1)/1_000_000 + " ms");
+        System.out.println("Test 2 - Collectors.joining() time:       " + (end2-start2)/1_000_000 + " ms");
+        System.out.println("Test 3 - StringBuilder collect() time:    " + (end3-start3)/1_000_000 + " ms");
+        System.out.println("Test 4 - Traditional loop time + StringBuilder: " + (end4-start4)/1_000_000 + " ms");
+        // System.out.println("Test 5 - Traditional loop time + String: " + (end5-start5)/1_000_000 + " ms");
         
       }
       
