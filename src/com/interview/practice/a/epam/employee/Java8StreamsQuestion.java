@@ -89,8 +89,8 @@ public class Java8StreamsQuestion {
 		System.out.println("********************************************************************");
 		
 		//From the employee list create a map which includes key as employee ID value as employee name.
-//		Map<Integer, String> empMap = empList.stream().collect(Collectors.toMap(Employee::getId, Employee::getName));
-		Map<Integer, String> empMap = empList.stream().collect(Collectors.toMap(Employee::getId, Employee::getName, (e,n)->e));
+		Map<Integer, String> empMap = empList.stream().collect(Collectors.toMap(Employee::getId, Employee::getName));
+//		Map<Integer, String> empMap = empList.stream().collect(Collectors.toMap(Employee::getId, Employee::getName, (e,n)->e));
 		System.out.println("empMap = "+empMap);
 		System.out.println("********************************************************************");
 		
