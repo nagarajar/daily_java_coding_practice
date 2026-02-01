@@ -1,0 +1,219 @@
+package initial.coding.practice;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class Main {
+  
+  public static void main(String[] args) {
+        // Example 1: Basic Approach
+        System.out.println("Example 1: Basic Approach");
+        String input1 = "Hello@World!  123 How#Are$You?";
+        System.out.println("Original: " + input1);
+        printVowelsUsingBasicApproach(input1);
+        System.out.println();
+        
+        // Example 2: Using String Methods
+        System.out.println("Example 2: Using String Methods");
+        String input2 = "Java@Programming#202u4uU! ";
+        System.out.println("Original: " + input2);
+        printVowelsUsingIndexOf(input2);
+        System.out.println();
+        
+        // Example 3: Using Regular Expression
+        System.out.println("Example 3: Using Regular Expression");
+        String input3 = "Test$123@String#With%Vowels&2024! ";
+        System.out.println("Original: " + input3);
+        printVowelsUsingRegularExpression(input3);
+        System.out.println();
+        
+        //Example 4: Separate Uppercase and Lowercase Vowels
+        System.out.println("Example 4: Separate Uppercase and Lowercase Vowels");
+        String input4 = "Hello@WORLD! Test#123$JAVA";
+        System.out.println("Original: " + input4);
+        separateUppercaseAndLowercaseVowels(input4);
+        System.out.println();
+        
+        //Example 5: Using StringBuilder (Efficient)
+        System.out.println("Example 5: Using StringBuilder (Efficient)");
+        String input5 = "Programming@2024#Java$Development! ";
+        System.out.println("Original: " + input5);
+        printVowelsUsingStringBuilder(input5);
+        System.out.println();
+        
+        //Example 6: Using Java 8 Streams
+        System.out.println("Example 6: Using Java 8 Streams");
+        String input6 = "Special@Characters#123$Test%String! ";
+        System.out.println("Original: " + input6);
+        printVowelsUsingStreams(input6);
+        System.out.println();
+        
+        //Conclusion: 
+        /*
+           Rank	Method	Best Use Case
+          🥇 1st	StringBuilder + indexOf()	Production, Large Data, Default Choice
+          🥈 3rd	Streams	Modern Projects, Functional Style, Readability
+          🥉 3nd	Regex	Small Data, Quick Scripts, Simplicity
+        */
+        System.out.println("Performance Test");
+        performanceTest();
+        
+      
+    }
+        
+    public static void printVowelsUsingBasicApproach(String input) {
+          
+          System.out.print("Vowels: ");
+          
+          for (int i = 0; i < input.length(); i++) {
+              char ch = input.charAt(i);
+              
+              // Check if character is a vowel
+              if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u' ||
+                  ch == 'A' || ch == 'E' || ch == 'I' || ch == 'O' || ch == 'U') {
+                  System.out.print(ch);
+              }
+          }
+          System.out.println();
+    }
+        
+    public static void printVowelsUsingIndexOf(String input) {
+        String vowels = "aeiouAEIOU";
+        String result = "";
+        
+        for (char ch : input.toCharArray()) {
+            if (vowels.indexOf(ch) != -1) {  // Check if ch is in vowels
+                result += ch;
+            }
+        }
+        
+        System.out.println("Vowels:  " + result);
+      }
+    
+      public static void printVowelsUsingRegularExpression(String input) {
+        // Remove everything except vowels
+        String vowelsOnly = input.replaceAll("[^aeiouAEIOU]", "");
+        
+        System.out.println("Vowels: " + vowelsOnly);
+      }
+    
+
+      public static void separateUppercaseAndLowercaseVowels(String input) {
+        String lowercase = "";
+        String uppercase = "";
+        
+        for (char ch : input.toCharArray()) {
+            if ("aeiou".indexOf(ch) != -1) {
+                lowercase += ch;
+            } else if ("AEIOU".indexOf(ch) != -1) {
+                uppercase += ch;
+            }
+        }
+        
+        System.out.println("Lowercase vowels: " + lowercase);
+        System.out.println("Uppercase vowels: " + uppercase);
+      }
+      
+      public static void printVowelsUsingStringBuilder(String input) {
+        StringBuilder vowels = new StringBuilder();
+        String vowelChars = "aeiouAEIOU";
+        
+        for (char ch : input.toCharArray()) {
+            if (vowelChars.indexOf(ch) != -1) {
+                vowels.append(ch);
+            }
+        }
+        
+        System.out.println("Vowels: " + vowels. toString());
+      }
+      
+      public static void printVowelsUsingStreams(String input) {
+        // Collectors.joining()
+        String method1 = input.chars()
+            .filter(ch -> "aeiouAEIOU".indexOf(ch) != -1)
+            .mapToObj(c -> String.valueOf((char) c))  // ✅ Convert to String! 
+            .collect(Collectors. joining());
+        
+        System.out. println("Vowels using Collectors.joining: " + method1);
+        
+        // Stream + StringBuilder
+        String method2 = input.chars()
+        .filter(ch -> "aeiouAEIOU".indexOf(ch) != -1)
+        .collect(
+            StringBuilder::new,
+            StringBuilder::appendCodePoint,
+            StringBuilder::append
+        )
+        .toString();
+        
+        System.out. println("Vowels using StringBuilder: " + method2);
+        
+        //Best Stream + StringBuilder 
+        /*
+        ✅ Combines Stream elegance with StringBuilder performance
+        ✅ ~2x faster than Collectors.joining()
+        ✅ Works with parallel streams
+        ✅ Memory efficient
+        ✅ Clean and readable
+        */
+      }
+      
+      public static void performanceTest(){
+        String input = "Hello@World#Test!".repeat(1000000);  // Large data
+        
+        // Test 1: Regex
+        long start1 = System. nanoTime();
+        String result1 = input.replaceAll("[^aeiouAEIOU]", "");
+        long end1 = System.nanoTime();
+        
+        // Test 2: Collectors.joining()
+        long start2 = System.nanoTime();
+        String result2 = input.chars()
+            .filter(ch -> "aeiouAEIOU". indexOf(ch) != -1)
+            .mapToObj(c -> String.valueOf((char) c))
+            .collect(Collectors.joining());
+        long end2 = System.nanoTime();
+        
+        // Test 3: StringBuilder with collect()
+        long start3 = System.nanoTime();
+        String result3 = input.chars()
+            .filter(ch -> "aeiouAEIOU". indexOf(ch) != -1)
+            .collect(
+                StringBuilder::new,
+                StringBuilder::appendCodePoint,
+                StringBuilder::append
+            )
+            .toString();
+        long end3 = System.nanoTime();
+        
+        // Test 4: Traditional loop with StringBuilder
+        long start4 = System.nanoTime();
+        StringBuilder sb = new StringBuilder();
+        for (char ch : input. toCharArray()) {
+            if ("aeiouAEIOU".indexOf(ch) != -1) {
+                sb.append(ch);
+            }
+        }
+        String result4 = sb.toString();
+        long end4 = System.nanoTime();
+        
+        // Test 5: Traditional loop with String
+        // long start5 = System.nanoTime();
+        // String result5 = "";
+        // for (char ch : input. toCharArray()) {
+        //     if ("aeiouAEIOU".indexOf(ch) != -1) {
+        //         result5 += ch;
+        //     }
+        // }
+        // long end5 = System.nanoTime();
+        
+        // Print results
+        System.out.println("Test 1 - Regex time:                      " + (end1-start1)/1_000_000 + " ms");
+        System.out.println("Test 2 - Collectors.joining() time:       " + (end2-start2)/1_000_000 + " ms");
+        System.out.println("Test 3 - StringBuilder collect() time:    " + (end3-start3)/1_000_000 + " ms");
+        System.out.println("Test 4 - Traditional loop time + StringBuilder: " + (end4-start4)/1_000_000 + " ms");
+        // System.out.println("Test 5 - Traditional loop time + String: " + (end5-start5)/1_000_000 + " ms");
+        
+      }
+      
+}
